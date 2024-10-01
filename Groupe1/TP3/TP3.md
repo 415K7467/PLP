@@ -1,19 +1,19 @@
-Année: 2024-2025
+Année : 2024-2025
 ----------------
 
 ### Travaux pratiques 3
 
 ## Objectifs
 
-1. **Exploration de l'interpréteur de commandes**: Comprendre le fonctionnement de l'interpréteur de commandes et tester
+1. **Exploration de l'interpréteur de commandes** : Comprendre le fonctionnement de l'interpréteur de commandes et tester
    ses fonctionnalités.
 
-2. **Améliorer l'interpréteur de commandes**: Ajouter de nouvelles fonctionnalités.
+2. **Améliorer l'interpréteur de commandes** : Ajouter de nouvelles fonctionnalités.
 
-3. **Ajouter le support des commandes en français**: Permettre l'utilisation de commandes en français et gérer les
+3. **Ajouter le support des commandes en français** : Permettre l'utilisation de commandes en français et gérer les
    accents et les caractères spéciaux.
 
-4. **Réaliser un évaluateur pour l'interpréteur**: Créer un tokenizeur, un parseur et un évaluateur pour les expressions
+4. **Réaliser un évaluateur pour l'interpréteur** : Créer un tokenizeur, un parseur et un évaluateur pour les expressions
    mathématiques pour évaluer les expressions arithmétiques.
 
 ## Exercice 3.1 [★]
@@ -27,7 +27,7 @@ fonctionnalités.
 2. Lorsque le programme démarre, vous devriez voir un prompt de commande `>`. Tapez une commande et appuyez sur Entrée.
 3. Testez les commandes suivantes et observez les résultats :
     * `echo Hello World` : devrait afficher "Echo: Hello World".
-    * `echo Bonjour à tous` : devrait afficher "Echo: Bonjour à tous" avec des sauts de ligne entre les mots.
+    * `echo Bonjour à tous` : devrait afficher "Echo : Bonjour à tous" avec des sauts de ligne entre les mots.
     * `foo` : devrait afficher "Commande non reconnue...".
     * `quit` : devrait arrêter le programme.
 4. Modifiez le code pour ajouter une nouvelle commande, par exemple `date`, qui affiche la date actuelle.
@@ -35,7 +35,7 @@ fonctionnalités.
 
 **Questions à réfléchir :**
 
-* Qu'est-ce qui se passe lorsque vous tapez une commande inconnue?
+* Qu'est-ce qui se passe lorsque vous tapez une commande inconnue ?
 
 > La commande était reconnue comme inconnue et un message d'erreur est affiché. `Commande non reconnue. Essayez '
 > echo <text>' pour afficher du texte, ou tapez 'quit' pour quitter.`
@@ -47,9 +47,10 @@ fonctionnalités.
 > Les espaces sont utilisés pour séparer les arguments de la commande. Les arguments sont ensuite affichés avec un
 > espace de séparation. Les espaces sont donc bien pris en compte.
 
-* Qu'est-ce qui se passe lorsque vous utilisez la commande `echo` avec des arguments?
+* Qu'est-ce qui se passe lorsque vous utilisez la commande `echo` avec des arguments ?
 
-> Les arguments sont affichés avec un espace de séparation. Les arguments sont donc bien pris en compte.
+> Les arguments sont affichés avec un espace de séparation. Le premier espace permet de séparer la commande des
+> arguments, les autres espaces sont conservés.
 
 * Comment pourriez-vous modifier le code pour ajouter de nouvelles commandes ?
 
