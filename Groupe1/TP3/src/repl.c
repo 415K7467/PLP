@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 /**
  * Programme qui simule un interpréteur de commandes simple.
@@ -42,6 +43,15 @@ int main()
                 printf("%c", commande[i]);
             }
             printf("\n"); // Saut de ligne après la sortie
+        }
+        else if (strcmp(commande, "") == 0)
+        {
+            printf("Commande vide, veuillez entrer une commande.\n");
+        }
+        else if (strcmp(commande, "date") == 0)
+        {
+            // Affiche la date et l'heure actuelles
+            system("date");
         }
         else
         {
