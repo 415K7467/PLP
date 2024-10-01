@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
 
 /**
  * Programme qui simule un interpréteur de commandes simple.
@@ -50,8 +49,7 @@ int main()
         }
         else if (strcmp(commande, "date") == 0)
         {
-            // Affiche la date et l'heure actuelles
-            system("date");
+            afficher_date();
         }
         else
         {
@@ -63,4 +61,10 @@ int main()
     }
 
     return 0;
+}
+
+afficher_date()
+{
+    // Affiche la date et l'heure actuelles
+    printf("Date et heure actuelles: " __DATE__ " " __TIME__ "\n");
 }
