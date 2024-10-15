@@ -54,3 +54,56 @@ char* infixToPostfix(const char* expression) {
     output[outputIndex - 1] = '\0'; // Remplacer le dernier espace par un terminateur
     return output;
 }
+
+double evaluatePostfix(const char* expression) {
+    Pile pile;
+    initPile(&pile);
+
+    const char* p = expression;
+    char buffer[20];
+
+    while (*p) {
+        if (isspace(*p)) {
+            p++;
+            continue; // Ignorer les espaces
+        }
+
+        if (isdigit(*p) || (*p == '.')) {
+            // Lire un nombre
+            char* end;
+            double value = strtod(p, &end);
+            push(&pile, value);
+            p = end; // Avancer le pointeur
+        } else if (strchr("+-*/", *p)) {
+            double operand2 = pop(&pile);
+            double operand1 = pop(&pile);
+            double result;
+
+            switch (*p) {
+                case '+':
+                    result = operand1 + operand2;
+                    break;
+                case '-':
+                    result = operand1 - operand2;
+                    break;
+                case '*':
+                    result = operand1 * operand2;
+                    break;
+                case '/':
+                    if (operand2 == 0) {
+                        fprintf(stderr, "Erreur: division par zéro\n");
+                        exit(EXIT_FAILURE);
+                    }
+                    result = operand1 / operand2;
+                    break;
+                default:
+                    fprintf(stderr, "Erreur: opérateur inconnu\n");
+                    exit(EXIT_FAILURE);
+            }
+            push(&pile, result);
+        }
+        p++;
+    }
+
+    return pop(&pile); // La valeur finale est le résultat
+}

@@ -32,7 +32,20 @@ int main() {
 
     char* postfix = infixToPostfix(expression);
     printf("Notation postfixée : %s\n", postfix);
-
+    printf("Résultat : %.2f\n", evaluatePostfix(postfix));
     free(postfix);
     return 0;
 }
+
+// gcc -o evaluator main.c postfix.c pile.c -lm
+
+// int main() {
+//     char expression[100];
+//     printf("Entrez une expression mathématique en notation postfixée : ");
+//     fgets(expression, sizeof(expression), stdin);
+
+//     double result = evaluatePostfix(expression);
+//     printf("Résultat : %.2f\n", result);
+
+//     return 0;
+// }
