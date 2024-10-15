@@ -722,3 +722,15 @@ Ligne 30, 1 fois
 
 5. **Gestion des Données et Recherche dans les Fichiers :** Compare la gestion des structures de données en C (structures) et en Python (classes) pour les données d’étudiant.e.s, et explique les techniques pour rechercher des phrases dans des fichiers en utilisant les deux langages.
 
+
+## Fichiers à rendre
+
+- Fichiers md: programmation_C_Python.md, CONTRIBUTORS.md, README.md
+- Fichiers C: *aire.c, bd_école.c, chaine.c, couleurs.c, erreurs.c, main.c, phrases.c, sizeof_types.c, sphere.h, surface.c, volume.c*
+- Fichiers Python: *aire.py, aire_dis.py, bd_école.py, chaine.py, couleurs.py, erreurs1.py, erreurs2.py, phrases.py, somme_dis.py, sizeof_types.py, variables.py*
+
+## Instructions
+
+- N'oubliez pas les commentaires (nom du fichier, objectif, auteurs, lignes importantes de code, etc.). Les commentaires sont notés.
+- N'oubliez pas de mettre à jour le fichier README.md et d'ajouter les détails.
+- Compte rendu au format .zip en un seul fichier.
