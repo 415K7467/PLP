@@ -1,2 +1,2 @@
-1. 
-2. 
+1. Vincent CHAVOT
+2. Loïc PUPIER
