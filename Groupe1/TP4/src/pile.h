@@ -1,19 +1,17 @@
+// pile.h
 #ifndef PILE_H
 #define PILE_H
 
-#define MAX_SIZE 100
-
 typedef struct {
-    char items[MAX_SIZE];
+    double* items;
     int top;
+    int maxSize;
 } Stack;
 
-void initStack(Stack* s);
-int isFull(Stack* s);
+// Function declarations
+void initStack(Stack* s, int maxSize);
+void push(Stack* s, double item);
+double pop(Stack* s);
 int isEmpty(Stack* s);
-void push(Stack* s, char item);
-char pop(Stack* s);
-char peek(Stack* s);
-int priority(char operator);
 
 #endif // PILE_H
