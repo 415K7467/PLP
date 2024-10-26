@@ -1,26 +1,34 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "lexer.h"
+#include "parseur.h"
+#include "evaluation.h"
+#include "postfix.h"
 #include "variable.h"
+#include "repl.h"
 
-int main() {
-    SymbolTable table;
+// gcc -o converter main.c variable.c postfix.c pile.c lexer.c parseur.c evaluation.c repl.c -lm
+
+/**
+ * Programme qui simule un interpréteur de commandes simple.
+ * Il lit les commandes utilisateur et les traite en fonction de leur contenu.
+ */
+
+int main()
+{
     initSymbolTable(&table);
-    char input[MAX_NAME_LENGTH + MAX_NAME_LENGTH]; // Variable name and value
+    // Boucle principale qui lit et traite les commandes utilisateur
+    while (CONTINUE)
+    {
+        printf("\n> "); // Affiche le prompt de commande
 
-    while (true) {
-        printf("> ");
-        fgets(input, sizeof(input), stdin);
+        // Buffer pour stocker la commande utilisateur
+        char* commande = set_commande();
 
-        // Remove newline character from input
-        input[strcspn(input, "\n")] = 0;
+        // Traite la commande en fonction de son contenu
+        traiter_commande(commande);
 
-        // Check for assignment
-        char name[MAX_NAME_LENGTH];
-        char value[MAX_NAME_LENGTH];
-        if (sscanf(input, "%s = %[^\n]", name, value) == 2) {
-            assignVariable(&table, name, value);
-        } else {
-            // Attempt to retrieve the variable
-            getVariable(&table, input);
-        }
     }
 
     return 0;

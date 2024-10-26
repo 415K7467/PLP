@@ -1,5 +1,7 @@
 #include "variable.h"
 
+SymbolTable table;
+
 // Initialize the symbol table
 void initSymbolTable(SymbolTable *table) {
     table->count = 0;
@@ -74,17 +76,17 @@ bool assignVariable(SymbolTable *table, const char *name, const char *value) {
 
 // Retrieve and print a variable
 bool getVariable(const SymbolTable *table, const char *name) {
-    for (int i = 0; i < table->count; i++) {
+    for (int i = 0; i < table->count; i++)
+    {
         if (strcmp(table->variables[i].name, name) == 0) {
             printVariable(&table->variables[i]);
             return true;
         }
     }
-    printf("Erreur : la variable %s n'est pas définie\n", name);
     return false;
 }
 
 // Print variable details
 void printVariable(const Variable *var) {
-    printf("Variable %s a pour valeur %s (%s)\n", var->name, var->value, typeToString(var->type));
+    printf("%s = %s\n", var->name, var->value);
 }
