@@ -149,9 +149,9 @@ void calculate_infix(Lang lang, char* commande) {
     // Remove newline character from the input
     input[strcspn(input, "\n")] = 0;
 
-    int tokenCount;
-    Token* tokens = tokenize(input, &tokenCount);
-    handleInfixExpression(input);
+    char* postfix = infixToPostfix(input);
+    printf("%s %s\n", lang == FR ? "Notation postfixée:" : "Postfix notation:", postfix);
+    printf("%s %.2f\n", lang == FR ? "Résultat:" : "Result:", evaluatePostfix(postfix));
     return;
 }
 
@@ -163,21 +163,8 @@ void calculate_postfix(Lang lang, char* commande) {
     // Remove newline character from the input
     input[strcspn(input, "\n")] = 0;
 
-    int tokenCount;
-    Token* tokens = tokenize(input, &tokenCount);
-    handlePostfixExpression(input);
+    printf("%s %.2f\n", lang == FR ? "Résultat:" : "Result:", evaluatePostfix(input));
     return;
-}
-
-void handleInfixExpression(const char* expression) {
-    char* postfix = infixToPostfix(expression);
-    printf("Notation postfixée : %s\n", postfix);
-    handlePostfixExpression(postfix);
-    free(postfix);
-}
-
-void handlePostfixExpression(const char* expression) {
-    printf("Résultat : %.2f\n", evaluatePostfix(expression));
 }
 
 char* set_commande(){
