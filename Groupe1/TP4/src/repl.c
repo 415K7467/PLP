@@ -44,6 +44,7 @@ void corriger_commande(char* commande);
 void afficher_date(Lang lang, char* unused);
 void calculate_postfix(Lang lang, char* expression);
 void calculate_infix(Lang lang, char* expression);
+int traiter_operation(char* input);
 
 //tableau de commandes
 Commande commandes[] = {
@@ -180,28 +181,37 @@ char* set_commande(){
 }
 
 void traiter_commande(char* commande){
+    if(traiter_operation(commande)){
+        return;
+    }
+
+    char* cmd = strtok(commande, " ");
     for (int i = 0; commandes[i].nom.nom_FR != NULL; i++) {
         if (strcmp(commandes[i].nom.nom_FR, commande) == 0 || strcmp(commandes[i].nom.nom_EN, commande) == 0) {
             commandes[i].fonction(strcmp(commandes[i].nom.nom_FR, commande) == 0 ? FR : EN, commande);
             return;
         }
     }
-    if (isOperation(commande)){
-        if(isInfix(commande)){
-            char* postfix = infixToPostfix(commande);
-            printf("%s %s\n", "Notation postfixée:", postfix);
-            printf("%s %.2f\n", "Résultat:", evaluatePostfix(postfix));
-            return;
-        }
-        if(isPostfix(commande)){
-            printf("%s %.2f\n","Résultat:" , evaluatePostfix(commande));
-            return;
-        }
-        printf("%s\n","Erreur: l'expression n'est ni postfixée ni infixée");
-    }
 
     // Affiche un message d'erreur si la commande n'est pas reconnue, FR est par défaut mais dans tout les cas, le message est dans les deux langues
     afficher_mauvaise_commande(FR, commande);
+}
+
+int traiter_operation(char* input){
+    if (isOperation(input)){
+        if(isInfix(input)){
+            char* postfix = infixToPostfix(input);
+            printf("%s %s\n", "Notation postfixée:", postfix);
+            printf("%s %.2f\n", "Résultat:", evaluatePostfix(postfix));
+            return 1;
+        }
+        if(isPostfix(input)){
+            printf("%s %.2f\n","Résultat:" , evaluatePostfix(input));
+            return 1;
+        }
+        printf("%s\n","Erreur: l'expression n'est ni postfixée ni infixée");
+    }
+    return 0;
 }
 
 
