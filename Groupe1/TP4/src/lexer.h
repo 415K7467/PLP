@@ -8,7 +8,9 @@ typedef enum {
     TOKEN_MULTIPLY,
     TOKEN_DIVIDE,
     TOKEN_END,
-    TOKEN_ERROR
+    TOKEN_ERROR,
+    TOKEN_OPENING_PARENTHESIS,
+    TOKEN_CLOSING_PARENTHESIS
 } TokenType;
 
 typedef struct {

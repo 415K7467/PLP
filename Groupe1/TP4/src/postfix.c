@@ -4,8 +4,8 @@
 #include <string.h>
 #include <ctype.h>
 #include "postfix.h"
-#include "pile.h"
-
+#include "parseur.h"
+#include "evaluation.h"
 
 // Fonction pour ajouter un opérande à la sortie
 void addOperandToOutput(const char* expression, int* i, char* output, int* outputIndex) {
@@ -127,21 +127,26 @@ double evaluatePostfix(const char* expression) {
 
 // Fonction pour évaluer une opération
 double evaluateOperation(char operator, double operand1, double operand2) {
+    Expression expression;
+    // Mets les valeurs dans une expression
+    expression.operand1 = operand1;
+    expression.operand2 = operand2;
+    expression.operation = getTokenOperator(operator);
+    return evaluate(expression);
+}
+
+// Fonction pour obtenir l'opérateur d'un token
+TokenType getTokenOperator(char operator) {
     switch (operator) {
         case '+':
-            return operand1 + operand2;
+            return TOKEN_PLUS;
         case '-':
-            return operand1 - operand2;
+            return TOKEN_MINUS;
         case '*':
-            return operand1 * operand2;
+            return TOKEN_MULTIPLY;
         case '/':
-            if (operand2 == 0) {
-                fprintf(stderr, "Erreur: division par zéro\n");
-                exit(EXIT_FAILURE);
-            }
-            return operand1 / operand2;
+            return TOKEN_DIVIDE;
         default:
-            fprintf(stderr, "Erreur: opérateur inconnu\n");
-            exit(EXIT_FAILURE);
+            return TOKEN_ERROR;
     }
 }

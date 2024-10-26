@@ -17,6 +17,10 @@ Token* tokenize(const char* expression, int* tokenCount) {
     const char* p = expression;
     while (*p) {
         if (isspace(*p)) {
+            if (0 && tokens[*tokenCount - 1].type == TOKEN_NUMBER) {
+                // si il y a un estpace après un nombre, on ferme le token
+                (*tokenCount)++;
+            }
             p++;
             continue;
         }
@@ -24,7 +28,12 @@ Token* tokenize(const char* expression, int* tokenCount) {
         if (isdigit(*p) || (*p == '.')) { // Nombres
             char* end;
             double value = strtod(p, &end);
-            tokens[(*tokenCount)++] = createToken(TOKEN_NUMBER, value);
+            // si le tocken précédent est un nombre, on ajoute le nombre à la valeur du token précédent
+            if (0 && tokens[*tokenCount - 1].type == TOKEN_NUMBER) {
+                tokens[*tokenCount - 1].value = tokens[*tokenCount - 1].value * 10 + value;
+            } else {
+                tokens[(*tokenCount)++] = createToken(TOKEN_NUMBER, value);
+            }
             p = end;
         } else if (*p == '+') {
             tokens[(*tokenCount)++] = createToken(TOKEN_PLUS, 0);
@@ -37,6 +46,12 @@ Token* tokenize(const char* expression, int* tokenCount) {
             p++;
         } else if (*p == '/') {
             tokens[(*tokenCount)++] = createToken(TOKEN_DIVIDE, 0);
+            p++;
+        } else if (*p == '(') {
+            tokens[(*tokenCount)++] = createToken(TOKEN_OPENING_PARENTHESIS, 0);
+            p++;
+        } else if (*p == ')') {
+            tokens[(*tokenCount)++] = createToken(TOKEN_CLOSING_PARENTHESIS, 0);
             p++;
         } else {
             tokens[(*tokenCount)++] = createToken(TOKEN_ERROR, 0);
