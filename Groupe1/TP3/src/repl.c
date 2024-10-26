@@ -138,6 +138,7 @@ char* set_commande(){
 }
 
 void traiter_commande(char* commande){
+    char* cmd = strtok(commande, " ");
     for (int i = 0; commandes[i].nom.nom_FR != NULL; i++) {
         if (strcmp(commandes[i].nom.nom_FR, commande) == 0 || strcmp(commandes[i].nom.nom_EN, commande) == 0) {
             commandes[i].fonction(strcmp(commandes[i].nom.nom_FR, commande) == 0 ? FR : EN, commande);
