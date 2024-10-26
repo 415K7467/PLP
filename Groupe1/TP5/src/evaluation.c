@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "evaluation.h"
@@ -23,23 +24,24 @@ double evaluate(Expression expr) {
     }
 }
 
-//int isInfixExpression(Token* tokens, int tokenCount) {
-//    fprintf(stderr, "%d ;;; count: %d\n" , tokens[tokenCount - 1], tokenCount - 1);
-//    // Check if the end expression token is a number or closing parenthesis
-//    return tokens[tokenCount - 1].type == TOKEN_NUMBER || tokens[tokenCount - 1].type == TOKEN_CLOSING_PARENTHESIS;
-//}
-//
-//int isPostfixExpression(Token* tokens, int tokenCount) {
-//
-//    // Check if the end expression token is an operator
-//    return tokens[tokenCount - 1].type == TOKEN_PLUS || tokens[tokenCount - 1].type == TOKEN_MINUS ||
-//           tokens[tokenCount - 1].type == TOKEN_MULTIPLY || tokens[tokenCount - 1].type == TOKEN_DIVIDE;
-//}
+int isOperation(char* input) {
+    //if it contains an operator or more and nomber of operand is number of operator + 1
+    int operatorCount = 0;
+    int operandCount = 0;
+    for (int i = 0; input[i] != '\0'; i++) {
+        if (input[i] == '+' || input[i] == '-' || input[i] == '*' || input[i] == '/') {
+            operatorCount++;
+        } else if (isdigit(input[i])) {
+            operandCount++;
+        }
+    }
+    return operatorCount > 0 && operandCount == operatorCount + 1;
+}
+
 int isInfixExpression(Token* tokens, int tokenCount) {
     if (tokenCount == 0) return 0;
 
-   // fprintf(stderr, "1 : %d;;%d \n",lastToken.type, tokenCount);
-    Token lastToken = tokens[tokenCount - 1];
+    Token lastToken = tokens[tokenCount - 2];
     if (lastToken.type == TOKEN_NUMBER || lastToken.type == TOKEN_CLOSING_PARENTHESIS) {
         return 1; // Le dernier token est un nombre ou une parenthèse fermante -> infixe
     }
@@ -51,8 +53,7 @@ int isInfixExpression(Token* tokens, int tokenCount) {
 int isPostfixExpression(Token* tokens, int tokenCount) {
     if (tokenCount == 0) return 0;
 
-    Token lastToken = tokens[tokenCount - 1];
-    //fprintf(stderr, "2 : %d;;%d \n",lastToken.type, tokenCount);
+    Token lastToken = tokens[tokenCount - 2];
     if (lastToken.type != TOKEN_PLUS ||
         lastToken.type != TOKEN_MINUS ||
         lastToken.type != TOKEN_MULTIPLY ||
@@ -63,3 +64,18 @@ int isPostfixExpression(Token* tokens, int tokenCount) {
     return 0; // Sinon, ce n'est pas une expression postfixe
 }
 
+int isInfix(char* input) {
+    int tokenCount;
+    Token* tokens = tokenize(input, &tokenCount);
+    int result = isInfixExpression(tokens, tokenCount);
+    free(tokens);
+    return result;
+}
+
+int isPostfix(char* input) {
+    int tokenCount;
+    Token* tokens = tokenize(input, &tokenCount);
+    int result = isPostfixExpression(tokens, tokenCount);
+    free(tokens);
+    return result;
+}

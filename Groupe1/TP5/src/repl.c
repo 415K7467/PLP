@@ -171,6 +171,23 @@ void calculate_postfix(Lang lang, char* commande) {
     return;
 }
 
+int traiter_operation(char* input){
+    if (isOperation(input)){
+        if(isInfix(input)){
+            char* postfix = infixToPostfix(input);
+            printf("%s %s\n", "Notation postfixée:", postfix);
+            printf("%s %.2f\n", "Résultat:", evaluatePostfix(postfix));
+            return 1;
+        }
+        if(isPostfix(input)){
+            printf("%s %.2f\n","Résultat:" , evaluatePostfix(input));
+            return 1;
+        }
+        printf("%s\n","Erreur: l'expression n'est ni postfixée ni infixée");
+    }
+    return 0;
+}
+
 char* set_commande(){
     static char commande[1024];
 
@@ -191,6 +208,10 @@ void traiter_commande(char* commande){
         return;
     }
 
+    if(traiter_operation(commande)){
+            return;
+    }
+
     char *cmd = strtok(commande, " ");
     for (int i = 0; commandes[i].nom.nom_FR != NULL; i++)
     {
@@ -203,6 +224,4 @@ void traiter_commande(char* commande){
     // Affiche un message d'erreur si la commande n'est pas reconnue, FR est par défaut mais dans tout les cas, le message est dans les deux langues
     afficher_mauvaise_commande(FR, commande);
 }
-
-
 
