@@ -27,11 +27,14 @@ typedef struct {
     int count;
 } SymbolTable;
 
+extern SymbolTable table;
+
 // Function prototypes
 void initSymbolTable(SymbolTable *table);
 bool assignVariable(SymbolTable *table, const char *name, const char *value);
 bool getVariable(const SymbolTable *table, const char *name);
 void printVariable(const Variable *var);
 const char* typeToString(VarType type);
+
 
 #endif // VARIABLE_H
