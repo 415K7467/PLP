@@ -186,6 +186,19 @@ void traiter_commande(char* commande){
             return;
         }
     }
+    if (isOperation(commande)){
+        if(isInfix(commande)){
+            char* postfix = infixToPostfix(commande);
+            printf("%s %s\n", "Notation postfixée:", postfix);
+            printf("%s %.2f\n", "Résultat:", evaluatePostfix(postfix));
+            return;
+        }
+        if(isPostfix(commande)){
+            printf("%s %.2f\n","Résultat:" , evaluatePostfix(commande));
+            return;
+        }
+        printf("%s\n","Erreur: l'expression n'est ni postfixée ni infixée");
+    }
 
     // Affiche un message d'erreur si la commande n'est pas reconnue, FR est par défaut mais dans tout les cas, le message est dans les deux langues
     afficher_mauvaise_commande(FR, commande);
